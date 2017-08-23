@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/uppercase/{string}', function($string){
+	return strtoupper($string);
+});
+
+Route::get('/increment/{number}', function($number){
+	return $number + 1;
+});
+
+Route::get('add/{number?}/{othernumber?}', function($number = 0, $othernumber = 0){
+	return $number + $othernumber;
+});
