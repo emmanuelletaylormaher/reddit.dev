@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Reddit</title>
+    @yield('title')
 </head>
 <body>
     @yield('content')

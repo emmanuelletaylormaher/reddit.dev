@@ -22,7 +22,9 @@ Route::get('/uppercase/{string}', function($string){
 });
 
 Route::get('/increment/{number}', function($number){
-	return $number + 1;
+	$increment = $number + 1;
+	$data = array("increment" => $increment);
+	return view('increment', $data);
 });
 
 Route::get('add/{number?}/{othernumber?}', function($number = 0, $othernumber = 0){
