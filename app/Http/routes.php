@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@showWelcome');
 
 Route::get('/uppercase/{string}', function($string){
 	$uppercase = strtoupper($string);
