@@ -16,7 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/uppercase/{string}', function($string){
-	return strtoupper($string);
+	$uppercase = strtoupper($string);
+	$data = array("uppercase" => $uppercase, "string" => $string);
+	return view('uppercase', $data);
 });
 
 Route::get('/increment/{number}', function($number){
@@ -25,4 +27,15 @@ Route::get('/increment/{number}', function($number){
 
 Route::get('add/{number?}/{othernumber?}', function($number = 0, $othernumber = 0){
 	return $number + $othernumber;
+});
+
+Route::get('/rolldice/{guess}', function($guess){
+	$random = rand(1, 6);
+	if ($random == $guess) {
+		$response = "You guessed it!".PHP_EOL;
+	} else {
+		$response = "Try again!".PHP_EOL;
+	}
+	$data = array('random' => $random, 'guess' => $guess, 'response' => $response);
+	return view('roll-dice', $data);
 });
