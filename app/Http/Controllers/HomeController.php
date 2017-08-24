@@ -16,6 +16,13 @@ class HomeController extends Controller
 		return view('increment', $data);
     }
 
+    public function lowercase($string)
+    {
+    	$lowercase = strtolower($string);
+    	$data = array("lowercase" => $lowercase, "string" => $string);
+    	return view('lowercase', $data);
+    }
+
 
 	public function rollDice($guess)
 	{

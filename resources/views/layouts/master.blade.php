@@ -5,5 +5,6 @@
 </head>
 <body>
     @yield('content')
+    @yield('links')
 </body>
 </html>

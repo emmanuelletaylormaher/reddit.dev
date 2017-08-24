@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@showWelcome');
 
+Route::get('lowercase/{string}', 'HomeController@lowercase');
+
 Route::get('/uppercase/{string}', 'HomeController@uppercase');
 
 Route::get('/increment/{number}', 'HomeController@incrementNumber');
