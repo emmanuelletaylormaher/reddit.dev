@@ -21,4 +21,6 @@ Route::get('/increment/{number}', 'HomeController@incrementNumber');
 
 Route::get('add/{number?}/{othernumber?}', 'HomeController@addNumber');
 
+Route::get('zero', 'HomeController@resetToZero');
+
 Route::get('/rolldice/{guess}', 'HomeController@rollDice');

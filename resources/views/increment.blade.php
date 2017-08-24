@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-	<h1>increment: {{$increment}} </h1>
+	<h1>increment: {{$number}} </h1>
 @stop
 
 @section('links')

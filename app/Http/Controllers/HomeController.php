@@ -13,8 +13,12 @@ class HomeController extends Controller
     {
     	$increment = $number + 1;
         $number = $increment;
+        if ($number > 5) {
+            return redirect()->action("HomeController@resetToZero");
+        }
+
 		$data = array("increment" => $increment, "number" => $number);
-		return view('increment', $data);
+        return view('increment', $data);  
     }
 
     public function lowercase($string)
@@ -26,7 +30,8 @@ class HomeController extends Controller
 
     public function resetToZero()
     {
-        $number = 0;
+        $data["number"] = 0;
+        return view('increment', $data);
     }
 
 	public function rollDice($guess)
