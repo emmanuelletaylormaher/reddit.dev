@@ -12,7 +12,8 @@ class HomeController extends Controller
     public function incrementNumber($number)
     {
     	$increment = $number + 1;
-		$data = array("increment" => $increment);
+        $number = $increment;
+		$data = array("increment" => $increment, "number" => $number);
 		return view('increment', $data);
     }
 
@@ -23,6 +24,10 @@ class HomeController extends Controller
     	return view('lowercase', $data);
     }
 
+    public function resetToZero()
+    {
+        $number = 0;
+    }
 
 	public function rollDice($guess)
 	{

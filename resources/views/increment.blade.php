@@ -7,3 +7,7 @@
 @section('content')
 	<h1>increment: {{$increment}} </h1>
 @stop
+
+@section('links')
+	<a href="{{action('HomeController@incrementNumber', array($number))}}">Increment me!</a>
+@stop
