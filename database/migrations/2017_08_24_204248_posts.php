@@ -21,7 +21,7 @@ class Posts extends Migration
             $table->string("created_by")->unsigned();
             $table->timestamps("created_at");
             $table->timestamps("updated_at");
-       })
+       });
     }
 
     /**
@@ -31,6 +31,6 @@ class Posts extends Migration
      */
     public function down()
     {
-        Schema::('contacts');
+        Schema::drop('contacts');
     }
 }
