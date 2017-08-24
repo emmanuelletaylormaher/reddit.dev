@@ -13,29 +13,10 @@
 
 Route::get('/', 'HomeController@showWelcome');
 
-Route::get('/uppercase/{string}', function($string){
-	$uppercase = strtoupper($string);
-	$data = array("uppercase" => $uppercase, "string" => $string);
-	return view('uppercase', $data);
-});
+Route::get('/uppercase/{string}', 'HomeController@uppercase');
 
-Route::get('/increment/{number}', function($number){
-	$increment = $number + 1;
-	$data = array("increment" => $increment);
-	return view('increment', $data);
-});
+Route::get('/increment/{number}', 'HomeController@incrementNumber');
 
-Route::get('add/{number?}/{othernumber?}', function($number = 0, $othernumber = 0){
-	return $number + $othernumber;
-});
+Route::get('add/{number?}/{othernumber?}', 'HomeController@addNumber');
 
-Route::get('/rolldice/{guess}', function($guess){
-	$random = rand(1, 6);
-	if ($random == $guess) {
-		$response = "You guessed it!".PHP_EOL;
-	} else {
-		$response = "Try again!".PHP_EOL;
-	}
-	$data = array('random' => $random, 'guess' => $guess, 'response' => $response);
-	return view('roll-dice', $data);
-});
+Route::get('/rolldice/{guess}', 'HomeController@rollDice');
