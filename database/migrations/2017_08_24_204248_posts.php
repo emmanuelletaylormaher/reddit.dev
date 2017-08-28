@@ -12,15 +12,15 @@ class Posts extends Migration
      */
     public function up()
     {
-       Schema::create('posts', function(Blueprint $table)
+       Schema::create('posts', function($table)
        {
             $table->increments('id');
             $table->string('title');
             $table->string('url');
-            $table->string('content', 460);
-            $table->string("created_by")->unsigned();
-            $table->timestamps("created_at");
-            $table->timestamps("updated_at");
+            $table->string('content');
+            $table->integer("created_by")->unsigned();
+            $table->foreign("created_by")->references('id')->on('users');
+            $table->timestamps();
        });
     }
 
@@ -31,6 +31,6 @@ class Posts extends Migration
      */
     public function down()
     {
-        Schema::drop('contacts');
+        Schema::drop('posts');
     }
 }

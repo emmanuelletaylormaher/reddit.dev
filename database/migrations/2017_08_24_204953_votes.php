@@ -12,14 +12,18 @@ class Votes extends Migration
      */
     public function up()
     {
-        Schema::create("votes", function(Blueprint $table)
+        Schema::create("votes", function($table)
         {
             $table->increments("id");
-            $table->string("user_id")->unsigned();
-            $table->string("post_id")->unsigned();
+
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")->references("id")->on("users");
+
+            $table->integer("post_id")->unsigned();
+            $table->foreign("post_id")->references("id")->on("posts");
+
             $table->integer("vote");
-            $table->datetime("created_at");
-            $table->datetime("updated_at");
+            $table->timestamps();
         });
     }
 
