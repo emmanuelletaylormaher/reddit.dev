@@ -16,7 +16,12 @@ class PostsController extends Controller
      */
     public function index()
     {
-       return "All posts!";
+        $posts = \App\Models\Post::All();
+
+        $data = array("posts" => $posts);
+
+       return view('posts.index', $data);
+
     }
 
     /**
@@ -27,6 +32,8 @@ class PostsController extends Controller
     public function create()
     {
         return view('posts.create');
+
+
     }
 
     /**
@@ -37,16 +44,16 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request->all());
-        $posts = $request->all();
+        // return back()->withInput();
+        
+        $post = new \App\Models\Post();
+        $post->title = $request->title;
+        $post->url = $request->url;
+        $post->content = $request->content;
+        $post->created_by = 2;
+        $post->save();
 
-        foreach ($posts as $post) {
-            if (empty($post)){
-                return back()->withInput();
-            }
-        }
-
-        return back()->withInput();
+        return \Redirect::action("PostsController@index");
     }
 
     /**
@@ -57,7 +64,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return "Show me that post!";
+        $post = \App\Models\Post::find($id);
+        $data = array("post"=>$post);
+        return view('posts.show', $data);
     }
 
     /**
@@ -68,7 +77,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        return view('posts.edit');
+        $post = \App\Models\Post::find($id);
+        $data['post'] = $post;
+        return view('posts.edit', $data);
     }
 
     /**
@@ -80,15 +91,14 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $posts = $request->all();
+        $post = \App\Models\Post::find($id);
+        $post->title = $request->title;
+        $post->url = $request->url;
+        $post->content = $request->content;
+        $post->created_by = 2;
+        $post->save();
 
-        foreach ($posts as $post) {
-            if (empty($post)){
-                return back()->withInput();
-            }
-        }
-
-        return back()->withInput();
+        return \Redirect::action("PostsController@show", $post->id);
     }
 
     /**
@@ -99,6 +109,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        return "Destroy that post!";
+        $post = \App\Models\Post::find($id);
+        $post->delete();
+        return \Redirect::action('PostsController@index');
     }
 }

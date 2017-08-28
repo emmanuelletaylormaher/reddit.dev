@@ -12,9 +12,13 @@
 		<form method="POST" action="{{action('PostsController@store')}}">
 			{!! csrf_field() !!}
 			Title: <input class="form-control" type="text" name="title" placeholder="enter title here..." value="{{ old('title') }}">
+
 			Content: <textarea class="form-control" type="textarea" name="content" rows="4" cols="20" >{{ old('content') }}</textarea>
+
 			URL: <input class="form-control" type="text" name="url" placeholder="enter url here..." value="{{ old('url') }}">
+			
 			{{ method_field('POST')}}
+
 			<input class="btn-success btn" type="submit">
 		</form>
 
