@@ -26,7 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return "Make a post!";
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +37,16 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        return "Put that post somewhere!";
+        var_dump($request->all());
+        $posts = $request->all();
+
+        foreach ($posts as $post) {
+            if (empty($post)){
+                return back()->withInput();
+            }
+        }
+
+        return back()->withInput();
     }
 
     /**
@@ -59,7 +68,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        return "Edit that post!";
+        return view('posts.edit');
     }
 
     /**
@@ -71,7 +80,15 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return "Update that post!";
+        $posts = $request->all();
+
+        foreach ($posts as $post) {
+            if (empty($post)){
+                return back()->withInput();
+            }
+        }
+
+        return back()->withInput();
     }
 
     /**
