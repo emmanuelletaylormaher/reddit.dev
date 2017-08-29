@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Log;
 use App\Models\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,7 @@ class PostsController extends Controller
      */
     public function index()
     {
+        Log::info('Someone visited the index page.');
         $posts = Post::paginate(4);
 
         $data = array("posts" => $posts);
@@ -60,6 +62,8 @@ class PostsController extends Controller
         $post->created_by = 2;
         $post->save();
 
+        Log::info('Post successfully stored.' . $post);
+
         return \Redirect::action("PostsController@index");
     }
 
@@ -73,7 +77,12 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         $data = array("post"=>$post);
+        if (!$post) {
+            Log::error("Post requested does not exist");
+            abort(404);
+        }
         return view('posts.show', $data);
+
     }
 
     /**
@@ -86,6 +95,11 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         $data['post'] = $post;
+
+        if (!$post) {
+            Log::error("Post requested does not exist");
+            abort(404);
+        }
         return view('posts.edit', $data);
     }
 
@@ -111,6 +125,11 @@ class PostsController extends Controller
         $post->created_by = 2;
         $post->save();
 
+        if (!$post) {
+            Log::error("Post requested does not exist");
+            abort(404);
+        }
+
         return \Redirect::action("PostsController@show", $post->id);
     }
 
@@ -126,6 +145,10 @@ class PostsController extends Controller
         $value = $request->session()->get("successMessage");
         $post = Post::find($id);
         $post->delete();
+        if (!$post) {
+            Log::error("Post requested does not exist");
+            abort(404);
+        }
         return \Redirect::action('PostsController@index');
     }
 }
