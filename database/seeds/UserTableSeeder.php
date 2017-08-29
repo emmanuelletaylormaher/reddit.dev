@@ -14,6 +14,8 @@ class UserTableSeeder extends Seeder
     {
         Model::unguard();
 
+        $userName = ["Luis", "Marx", "Baphomet", "Leviathan", "Trent", "Sartre", "Pygmalion", "Daedelus", "Hal", "Apollonia"];
+
         $user1 = new App\User();
         $user1->email = 'user1@codeup.com';
         $user1->name = 'Luis';
