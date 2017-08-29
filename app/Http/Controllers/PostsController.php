@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = \App\Models\Post::paginate(4);
+        $posts = Post::paginate(4);
 
         $data = array("posts" => $posts);
 
@@ -48,11 +49,11 @@ class PostsController extends Controller
         $value = $request->session()->get("successMessage");
 
 
-        $rules = \App\Models\Post::$rules;
+        $rules = Post::$rules;
         
         $this->validate($request, $rules);
 
-        $post = new \App\Models\Post();
+        $post = new Post();
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
@@ -70,7 +71,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
         $data = array("post"=>$post);
         return view('posts.show', $data);
     }
@@ -83,7 +84,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
         $data['post'] = $post;
         return view('posts.edit', $data);
     }
@@ -99,11 +100,11 @@ class PostsController extends Controller
     {
         $request->session()->flash('successMessage', 'Post edited successfully.');
         $value = $request->session()->get("successMessage");
-        $rules = \App\Models\Post::$rules;
+        $rules = Post::$rules;
         
         $this->validate($request, $rules);
 
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
@@ -123,7 +124,7 @@ class PostsController extends Controller
     {
         $request->session()->flash('successMessage', 'Post deleted successfully.');
         $value = $request->session()->get("successMessage");
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
         $post->delete();
         return \Redirect::action('PostsController@index');
     }
