@@ -11,11 +11,15 @@
 		<h1>Edit your thing!!</h1>
 		<form method="POST" action="{{action('PostsController@update', $post->id)}}">
 			{!! csrf_field() !!}
-			Title: <input type="text" name="title" class="form-control" placeholder="enter title here..." value="{{ $post->title }}">
-
-			Content: <textarea name="content" class="form-control" rows="4" cols="20" value="">{{ $post->content}}</textarea>
 			
-			URL: <input type="text" name="url" class="form-control" placeholder="enter url here..." value="{{$post->url}}">
+			{!! $errors->first('title', '<span class="help-block">:message </span>') !!}
+			<input type="text" name="title" class="form-control" placeholder="enter title here..." value="{{ $post->title }}">
+
+			{!! $errors->first('content', '<span class="help-block">:message</span>') !!}
+			<textarea name="content" class="form-control" rows="4" cols="20" value="">{{ $post->content}}</textarea>
+			
+			{!! $errors->first('url', '<span class="help-block">:message</span>')!!}
+			<input type="text" name="url" class="form-control" placeholder="enter url here..." value="{{$post->url}}">
 
 			{{ method_field('PUT')}}
 

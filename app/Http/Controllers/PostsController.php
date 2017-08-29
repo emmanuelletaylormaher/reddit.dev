@@ -16,7 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = \App\Models\Post::All();
+        $posts = \App\Models\Post::paginate(4);
 
         $data = array("posts" => $posts);
 
@@ -44,8 +44,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        // return back()->withInput();
+        $request->session()->flash('successMessage', 'Post created successfully.');
+        $value = $request->session()->get("successMessage");
+
+
+        $rules = \App\Models\Post::$rules;
         
+        $this->validate($request, $rules);
+
         $post = new \App\Models\Post();
         $post->title = $request->title;
         $post->url = $request->url;
@@ -91,6 +97,12 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->session()->flash('successMessage', 'Post edited successfully.');
+        $value = $request->session()->get("successMessage");
+        $rules = \App\Models\Post::$rules;
+        
+        $this->validate($request, $rules);
+
         $post = \App\Models\Post::find($id);
         $post->title = $request->title;
         $post->url = $request->url;
@@ -107,8 +119,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $request->session()->flash('successMessage', 'Post deleted successfully.');
+        $value = $request->session()->get("successMessage");
         $post = \App\Models\Post::find($id);
         $post->delete();
         return \Redirect::action('PostsController@index');

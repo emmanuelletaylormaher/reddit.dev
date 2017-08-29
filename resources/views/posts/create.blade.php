@@ -5,17 +5,20 @@
 
 @stop
 
+
 @section('content')
 
 	<main class="container">
 		<h1>Create a thing!!!</h1>
 		<form method="POST" action="{{action('PostsController@store')}}">
 			{!! csrf_field() !!}
-			Title: <input class="form-control" type="text" name="title" placeholder="enter title here..." value="{{ old('title') }}">
+			{!! $errors->first('title', '<span class="help-block">:message </span>') !!}
+			<input class="form-control" type="text" name="title" placeholder="enter title here..." value="{{ old('title') }}">
+			{!! $errors->first('content', '<span class="help-block">:message</span>') !!}
+			<textarea class="form-control" type="textarea" name="content" rows="4" cols="20" >{{ old('content') }}</textarea>
 
-			Content: <textarea class="form-control" type="textarea" name="content" rows="4" cols="20" >{{ old('content') }}</textarea>
-
-			URL: <input class="form-control" type="text" name="url" placeholder="enter url here..." value="{{ old('url') }}">
+			{!! $errors->first('url', '<span class="help-block">:message</span>')!!}
+			<input class="form-control" type="text" name="url" placeholder="enter url here..." value="{{ old('url') }}">
 			
 			{{ method_field('POST')}}
 
