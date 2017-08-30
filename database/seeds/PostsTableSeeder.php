@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Post;
+use App\User;
+
 
 class PostsTableSeeder extends Seeder
 {
@@ -12,12 +15,14 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i < 11 ; $i++) { 
-            $post = new App\Models\Post();
-            $post->title = "Test";
-            $post->url = "http://bomb.com";
-            $post->content = "Cahf ah nafl mglw'nafh hh' ahor syha'h ah'legeth, ng llll or'azath syha'hnahh n'ghftephai n'gha ahornah ah'mglw'nafh";
-            $post->created_by = $i;
+        $faker = Faker\Factory::create();
+        
+        for ($i=0; $i < 500 ; $i++) { 
+            $post = new Post();
+            $post->title = $faker->catchPhrase;
+            $post->url = $faker->url;
+            $post->content = $faker->bs;
+            $post->created_by = User::all()->random()->id;
             $post->save();
         }
         
