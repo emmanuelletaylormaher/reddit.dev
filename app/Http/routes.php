@@ -15,12 +15,24 @@ Route::resource('posts', 'PostsController');
 
 // HomeController routes
 Route::get('/', 'HomeController@showWelcome');
+Route::get('/home', 'HomeController@showWelcome');
 Route::get('lowercase/{string}', 'HomeController@lowercase');
 Route::get('/uppercase/{string}', 'HomeController@uppercase');
 Route::get('/increment/{number}', 'HomeController@incrementNumber');
 Route::get('add/{number?}/{othernumber?}', 'HomeController@addNumber');
 Route::get('zero', 'HomeController@resetToZero');
 Route::get('/rolldice/{guess}', 'HomeController@rollDice');
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+
 
 Route::get('orm-test', function(){
 	// $post1 = new \App\Models\Post();
