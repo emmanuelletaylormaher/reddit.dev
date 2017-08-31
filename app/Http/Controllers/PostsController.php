@@ -26,7 +26,7 @@ class PostsController extends Controller
     public function index()
     {
         Log::info('Someone visited the index page.');
-        $posts = Post::paginate(4);
+        $posts = Post::with('user')->paginate(4);
 
         $data = array("posts" => $posts);
 
