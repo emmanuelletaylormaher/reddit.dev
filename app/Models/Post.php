@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-
+use DB;
 
 class Post extends BaseModel
 {
@@ -23,5 +23,11 @@ class Post extends BaseModel
     public function votes()
     {
     	return $this->hasMany('App\Models\Vote', 'vote_id');
+    }
+
+    public static function search($search)
+    {
+        $posts = Post::where('title', 'LIKE', '%' . $search . '%')->get();
+        return $posts;
     }
 }

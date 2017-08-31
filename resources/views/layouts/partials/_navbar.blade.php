@@ -17,8 +17,10 @@
 	</ul>
 	@endif
 
-	<form class= "navbar-form form-inline">
-		<input class="form-control mr-sm-2" type="text" placeholder="search">
+<!-- search bar -->
+	<form method="GET" action="{{action('PostsController@index')}}" class="navbar-form form-inline">
+	{{!! csrf_field() !!}}
+		<input class="form-control mr-sm-2" name="search" type="text" placeholder="search for a post...">
 		<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
 	</form>
 </nav>

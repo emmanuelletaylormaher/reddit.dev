@@ -22,5 +22,5 @@
 @stop
 
 @section('links')
-{!! $posts->render() !!}
+
 @stop

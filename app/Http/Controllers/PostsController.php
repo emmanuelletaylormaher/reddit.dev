@@ -8,6 +8,7 @@ use Log;
 use App\Models\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use DB;
 
 
 class PostsController extends Controller
@@ -15,7 +16,7 @@ class PostsController extends Controller
 
     public function __construct()
     {
-       $this->middleware('auth', ['except' => ['show', 'index']]);
+       $this->middleware('auth', ['except' => ['show', 'index', 'testBuilder']]);
     }
 
     /**
@@ -23,12 +24,19 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+            $query = $request->search;
+            $posts = Post::search($query);
+        } else {
+            $posts = Post::with('user')->get();
+        }
+
         Log::info('Someone visited the index page.');
-        $posts = Post::with('user')->paginate(4);
 
         $data = array("posts" => $posts);
+
 
        return view('posts.index', $data);
 
@@ -160,5 +168,10 @@ class PostsController extends Controller
             abort(404);
         }
         return \Redirect::action('PostsController@index');
+    }
+
+    public function testBuilder()
+    {
+        var_dump(DB::table('posts')->get()[0]->title);
     }
 }
