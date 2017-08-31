@@ -12,6 +12,8 @@ class AuthController extends Controller
 {
     protected $loginPath = '/login';
     protected $redirectPath = '/posts';
+    protected $redirectAfterLogout = "/posts";
+
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
